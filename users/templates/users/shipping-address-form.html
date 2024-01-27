@@ -1,0 +1,24 @@
+{% extends "users/layout.html" %}
+
+{% block body %}
+<h3 class="mb-4 text-center">Add New Shipping Address</h3>
+
+<form class="form-group" method="post" action="{% url 'add_shipping_address' %}" id="address-form">
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div class="mb-3">
+        <label class="text-muted" for="{{field.id_for_label}}">{{field.label}}: </label>
+        {{ field }}
+        <div id="{{field.label}}" class="text-muted"><small>{{field.help_text}}</small></div>
+        {% if field.errors %}
+        <div class="invalid-feedback">
+            {{ field.errors }}
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
